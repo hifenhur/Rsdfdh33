@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="fill_parent"
+		android:orientation="horizontal"
+		android:gravity="center_vertical"
+		android:padding="10dip">
+		<ImageView
+		    android:contentDescription="@string/app_name"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:src="@drawable/help"
+			android:layout_weight="0" 
+			android:id="@+id/icon"/>
+		<TextView
+			android:layout_height="wrap_content"
+			android:ellipsize="end"
+			android:layout_width="fill_parent"
+			android:layout_weight="1"
+			android:id="@+id/name" 
+			android:textSize="24sp" 
+			android:layout_marginLeft="10dp" android:text="@string/title_unknown_device"/>
+	</LinearLayout>
+	
+		<RelativeLayout
+			android:layout_height="0dp"
+			android:layout_width="fill_parent"
+			android:orientation="vertical"
+			android:gravity="center_horizontal"
+			android:padding="10dip" 
+			android:layout_weight="0.76">
+
+			<Button
+			    android:id="@+id/print_self_test"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:drawableLeft="@drawable/selftest"
+			    android:text="@string/title_print_self_test"
+			    android:textSize="24sp"
+			    android:textStyle="bold"
+			    android:visibility="gone" />
+
+			<Button
+			    android:id="@+id/print_text"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:drawableLeft="@drawable/text"
+			    android:text="@string/title_print_text"
+			    android:textSize="24sp"
+			    android:textStyle="bold"
+			    android:visibility="gone" />
+
+			<Button
+			    android:id="@+id/print_image"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:drawableLeft="@drawable/image"
+			    android:text="@string/title_print_image"
+			    android:textSize="24sp"
+			    android:textStyle="bold"
+			    android:visibility="gone" />
+
+			<Button
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:textSize="24sp"
+				android:textStyle="normal"	
+				android:id="@+id/print_page"
+				android:drawableLeft="@drawable/page"				
+				android:text="@string/print_sale_confirm"/>
+
+			<Button
+			    android:id="@+id/print_barcode"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:drawableLeft="@drawable/barcode"
+			    android:text="@string/title_print_barcode"
+			    android:textSize="24sp"
+			    android:textStyle="bold"
+			    android:visibility="gone" />
+
+			<Button
+			    android:id="@+id/read_card"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:drawableLeft="@drawable/card"
+			    android:text="@string/title_read_card"
+			    android:textSize="24sp"
+			    android:textStyle="bold"
+			    android:visibility="gone" />
+
+			<Button
+			    android:id="@+id/exit"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_alignParentBottom="true"
+			    android:layout_centerHorizontal="true"
+			    android:drawableLeft="@drawable/close"
+			    android:gravity="center_vertical|center_horizontal"
+			    android:text="@string/cancel_print"
+			    android:textSize="20sp"
+			    android:textStyle="normal" />
+
+		</RelativeLayout>
+</LinearLayout>
