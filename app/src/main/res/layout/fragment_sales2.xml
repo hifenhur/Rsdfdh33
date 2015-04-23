@@ -1,0 +1,17 @@
+<android.support.v4.widget.SwipeRefreshLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/swipeContainer"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="br.com.expark.pdvdesk.SalesList.PlaceholderFragment">>
+
+<ListView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/sales_list"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true" />
+
+</android.support.v4.widget.SwipeRefreshLayout>

@@ -173,9 +173,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                                 Toast.makeText(ctx, R.string.login_error, Toast.LENGTH_LONG).show();
                             }else{
                                 showProgress(false);
-                                Intent intent =  new Intent(ctx, SalesActivity.class);
-                                startActivity(intent);
                                 GlobalParameters.getInstance().sellerUUID = (response.getString("seller_uuid"));
+                                Intent intent =  new Intent(ctx, MainActivity.class);
+                                startActivity(intent);
+
 
                             }
                             VolleyLog.v("Response:%n %s", response.toString(4));

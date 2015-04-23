@@ -59,11 +59,27 @@ public class Sell implements Serializable {
     }
 
     public String getType() {
-        if (category == 1) {
-            return "Avulso";
-        } else {
-            return "Credito Conta Cliente";
+        String sCategory;
+
+        switch (category){
+            case 1:
+                sCategory =  "Avulso";
+                break;
+            case 2:
+                sCategory =  "Credito Conta Cliente";
+                break;
+            case 3:
+                sCategory = "Recarga de Cartão";
+                break;
+            case 4:
+                sCategory = "Venda de Cartão";
+                break;
+            default:
+                sCategory = "Modalidade Desconhecida";
+                break;
         }
+        return sCategory;
+
     }
 
     public String getContent() {
@@ -72,11 +88,26 @@ public class Sell implements Serializable {
 
 
     public String getContentType() {
-        if (category == 1) {
-            return "Placa";
-        } else {
-            return "CPF";
+        String sCategory;
+
+        switch (category){
+            case 1:
+                sCategory =  "Placa";
+                break;
+            case 2:
+                sCategory =  "CPF";
+                break;
+            case 3:
+                sCategory = "Cartao";
+                break;
+            case 4:
+                sCategory = "Cartao";
+                break;
+            default:
+                sCategory = "Cartao";
+                break;
         }
+        return sCategory;
     }
 
     public String getUuid() {
@@ -88,7 +119,7 @@ public class Sell implements Serializable {
     }
 
     public String getCreatedAt() {
-        return new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(createdAt);
+        return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(createdAt);
     }
 
     public String getNsu() {
@@ -96,7 +127,7 @@ public class Sell implements Serializable {
     }
 
     public String getLimitAt() {
-        return new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(limitAt);
+        return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(limitAt);
     }
 
     public String getPdv() {

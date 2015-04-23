@@ -4,14 +4,20 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,30 +27,41 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import models.GlobalParameters;
 import models.Sell;
 
 
-public class SalesActivity extends ListActivity {
+public class SalesActivity extends ActionBarActivity {
     ArrayList<Sell> mSalesList = null;
     JSONArray mSalesListJSON = null;
     String mSellerUid = GlobalParameters.getInstance().sellerUUID;
     private SwipeRefreshLayout swipeContainer;
-    private int backPressedCount = 0;
-    private int PRESS_TIMES_TO_EXIT = 2;
+    private String mCardPin;
+    private HashMap<String, String> params;
+    private ListView mListView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sales);
         final Context ctx = this;
+        try {
+            params = (HashMap<String, String>) getIntent().getSerializableExtra("params");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        mListView = (ListView)findViewById(R.id.main_list);
 
 
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
@@ -70,6 +87,10 @@ public class SalesActivity extends ListActivity {
 
         getSellsFromServer();
 
+        android.support.v7.app.ActionBar action=getSupportActionBar();
+        action.setDisplayHomeAsUpEnabled(true);
+        action.setTitle("Vendas");
+
 
     }
 
@@ -91,18 +112,33 @@ public class SalesActivity extends ListActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                // This is called when the Home (Up) button is pressed in the action bar.
+                // Create a simple intent that starts the hierarchical parent activity and
+                // use NavUtils in the Support Package to ensure proper handling of Up.
+                Intent upIntent = new Intent(this, MainActivity.class);
+                if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
+                    // This activity is not part of the application's task, so create a new task
+                    // with a synthesized back stack.
+                    TaskStackBuilder.from(this)
+                            // If there are ancestor activities, they should be added here.
+                            .addNextIntent(upIntent)
+                            .startActivities();
+                    finish();
+                } else {
+                    // This activity is part of the application's task, so simply
+                    // navigate up to the hierarchical parent activity.
+                    NavUtils.navigateUpTo(this, upIntent);
+                }
+                return true;
         }
-
         return super.onOptionsItemSelected(item);
+
+
     }
+
+
 
     public void loadList() {
         final Context ctx = this.getApplicationContext();
@@ -118,9 +154,9 @@ public class SalesActivity extends ListActivity {
             }
         });
 
-        setListAdapter(adapter);
+        mListView.setAdapter(adapter);
 
-        this.getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ctx, SaleActivity.class);
@@ -133,11 +169,24 @@ public class SalesActivity extends ListActivity {
 
 
     public void getSellsFromServer() {
-        mSalesList = new ArrayList<Sell>();
+
         final Context ctx = this;
         String default_url = GlobalParameters.getInstance().defaultUrl;
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url = default_url + "/pdv_sales/" + mSellerUid + ".json";
+        String url;
+        try {
+            mCardPin = params.get("card_pin").toString();
+            if (!mCardPin.isEmpty()){
+                url = default_url + "/pdv_sales/" + mSellerUid + "/"+mCardPin+".json";
+            }else{
+                url = default_url + "/pdv_sales/" + mSellerUid + ".json";
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            url = default_url + "/pdv_sales/" + mSellerUid + ".json";
+        }
+
 
         JsonArrayRequest getRequest = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
@@ -145,9 +194,14 @@ public class SalesActivity extends ListActivity {
                     public void onResponse(JSONArray response) {
                         // display response
                         Log.d("Response", response.toString());
+                        if(response.length() < 1){
+                            Toast.makeText(ctx, "Não existe nenhuma venda para ser processada", Toast.LENGTH_SHORT).show();
+                        }
+                        mSalesList = new ArrayList<Sell>();
 
                         for (int i = 0; i < response.length(); i++) {
                             try {
+
 
                                 JSONObject jsonSell = response.getJSONObject(i);
                                 Sell sell = new Sell(
@@ -194,20 +248,7 @@ public class SalesActivity extends ListActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        // Otherwise defer to system default behavior.
-        backPressedCount += 1;
 
-        if (backPressedCount >= PRESS_TIMES_TO_EXIT) {
-            super.onBackPressed();
-        } else {
-            Toast.makeText(this,
-                    "Para sair pressione o botão mais "+ (backPressedCount - PRESS_TIMES_TO_EXIT) + " vez",
-                    Toast.LENGTH_SHORT).show();
-        }
-
-    }
 
 
 }

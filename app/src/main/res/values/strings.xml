@@ -37,7 +37,7 @@
     <string name="msg_no_paper">Impressora sem papel</string>
     <string name="msg_low_battery">impressora com pouca bateria</string>
     <string name="msg_overheated">super aquecimento</string>
-    <string name="title_please_wait">espere</string>
+    <string name="title_please_wait">Aguarde...</string>
     <string name="msg_failed_to_init">falha para iniciar</string>
     <string name="msg_failed_to_connect">falha ao conectar</string>
     <string name="msg_connecting">conectando</string>
@@ -50,5 +50,28 @@
     <string name="no">Não</string>
     <string name="information">Informação</string>
     <string name="loading">Processando</string>
+    <string name="title_activity_main">MainActivity</string>
 
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+    <string name="title_toten_sales">Compras do Toten</string>
+    <string name="title_card_sell">Vender Cartão</string>
+    <string name="title_card_recharge">Recarregar Cartão</string>
+    <string name="title_item_list">Items</string>
+    <string name="title_item_detail">Item Detail</string>
+    <string name="toten_sales">Vendas do Toten</string>
+    <string name="card_recharge">Recarga de Cartão</string>
+    <string name="sell_card">Venda de Cartão</string>
+    <string name="title_activity_card_sell">CardSell</string>
+    <string name="title_activity_card_recharge">CardRechargeActivity</string>
+    <string name="card_sell_error">Erro ao vender Cartão</string>
+    <string name="title_activity_sales2">Sales2Activity</string>
+    <string name="confirm">Confirmar Pagamento</string>
+    <string name="cancel_success">Cancelado com Sucesso</string>
 </resources>
