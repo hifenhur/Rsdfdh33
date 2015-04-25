@@ -29,7 +29,7 @@ public class Sell implements Serializable {
 
 
     public String toString() {
-        String response = content + " - " + getCreatedAt() + " - " + this.getValue();
+        String response = getCreatedAt();
 
         return response;
     }
@@ -63,7 +63,7 @@ public class Sell implements Serializable {
 
         switch (category){
             case 1:
-                sCategory =  "Avulso";
+                sCategory =  "Ticket Avulso";
                 break;
             case 2:
                 sCategory =  "Credito Conta Cliente";

@@ -89,7 +89,7 @@ public class SalesActivity extends ActionBarActivity {
 
         android.support.v7.app.ActionBar action=getSupportActionBar();
         action.setDisplayHomeAsUpEnabled(true);
-        action.setTitle("Vendas");
+        action.setTitle("Vendas no Terminal");
 
 
     }
@@ -148,7 +148,7 @@ public class SalesActivity extends ActionBarActivity {
                 View view = super.getView(position, convertView, parent);
                 TextView text1 = (TextView) view.findViewById(android.R.id.text1);
                 TextView text2 = (TextView) view.findViewById(android.R.id.text2);
-                text1.setText(mSalesList.get(position).getContent());
+                text1.setText(mSalesList.get(position).getContent() + " - " + mSalesList.get(position).getValue());
                 text2.setText(mSalesList.get(position).toString());
                 return view;
             }
@@ -177,6 +177,7 @@ public class SalesActivity extends ActionBarActivity {
         try {
             mCardPin = params.get("card_pin").toString();
             if (!mCardPin.isEmpty()){
+                getSupportActionBar().setTitle("Recarga");
                 url = default_url + "/pdv_sales/" + mSellerUid + "/"+mCardPin+".json";
             }else{
                 url = default_url + "/pdv_sales/" + mSellerUid + ".json";

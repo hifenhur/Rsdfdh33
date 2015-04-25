@@ -65,7 +65,7 @@
     <string name="title_card_recharge">Recarregar Cartão</string>
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
-    <string name="toten_sales">Vendas do Toten</string>
+    <string name="toten_sales">Vendas no Terminal</string>
     <string name="card_recharge">Recarga de Cartão</string>
     <string name="sell_card">Venda de Cartão</string>
     <string name="title_activity_card_sell">CardSell</string>
@@ -74,4 +74,6 @@
     <string name="title_activity_sales2">Sales2Activity</string>
     <string name="confirm">Confirmar Pagamento</string>
     <string name="cancel_success">Cancelado com Sucesso</string>
+    <string name="card_sell">Venda do Cartão</string>
+    <string name="recharge_sell">Venda de Recarga</string>
 </resources>

@@ -97,6 +97,24 @@ public class SaleActivity extends ActionBarActivity {
 
     private void setViewsVariables(){
         mSell = (Sell)getIntent().getExtras().get("sell");
+        try {
+            if((Boolean)getIntent().getExtras().get("card_sell")){
+                TextView title = (TextView)findViewById(R.id.sale_title);
+                title.setText(R.string.card_sell);
+            }
+        }catch (Exception e){
+
+        }
+
+        try {
+            if(mSell.getContentType().equals("Recarga de Cartão")){
+                TextView title = (TextView)findViewById(R.id.sale_title);
+                title.setText(R.string.recharge_sell);
+            }
+        }catch (Exception e){
+
+        }
+
         saleTypeView.setText(mSell.getType());
         saleView.setText(mSell.getContent());
         contentTypeView.setText(mSell.getContentType());
@@ -177,7 +195,7 @@ public class SaleActivity extends ActionBarActivity {
         String text = getString(R.string.loading);
         // Progress dialog available due job execution
         final ProgressDialog dialog = ProgressDialog.show(SaleActivity.this, title, text);
-        dialog.setCancelable(false);
+        dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(false);
 
         JsonObjectRequest loginRequest = new JsonObjectRequest(method, url, new JSONObject(),
@@ -198,8 +216,8 @@ public class SaleActivity extends ActionBarActivity {
                             }
                             VolleyLog.v("Response:%n %s", response.toString(4));
                         } catch (JSONException e) {
-                            dialog.dismiss();
                             Toast.makeText(ctx, R.string.server_error, Toast.LENGTH_LONG).show();
+                            dialog.dismiss();
                             e.printStackTrace();
                         }
                         dialog.dismiss();

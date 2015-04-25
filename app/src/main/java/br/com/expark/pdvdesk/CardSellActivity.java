@@ -156,6 +156,7 @@ public class CardSellActivity extends ActionBarActivity implements QRCodeReaderV
 
                                 Intent intent = new Intent(ctx, SaleActivity.class);
                                 intent.putExtra("sell", sell);
+                                intent.putExtra("card_sell", true);
                                 startActivity(intent);
 
 
